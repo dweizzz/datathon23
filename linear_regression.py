@@ -4,6 +4,7 @@ import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from sklearn.model_selection import train_test_split
 
 #preprocessing
 df = pd.read_csv('data\Immunisations.csv')
@@ -19,6 +20,7 @@ merged = pd.merge(left=df, right=df_doc, how='right', left_on=['Year','Country']
 merged = merged.rename(columns={'Value_x': 'percent_immun', 'Value_y': 'num_physicians'})
 
 #split data
+train, test = train_test_split(merged, test_size=0.2)
 
 #number of features to pass into model
 num_features = len(merged.columns())
